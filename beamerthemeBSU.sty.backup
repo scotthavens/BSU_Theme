@@ -16,16 +16,21 @@
 
 \mode<presentation>
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SET ALL THE COLOR / FONT THEMES
+% - these take the place of usecolortheme
+
 % set the font size and colors
 \setbeamerfont{author}{size=\large,series=\bfseries}
 % \setbeamercolor{author}{fg=Bgray}
 \setbeamerfont{institute}{size=\footnotesize}
 \setbeamerfont{date}{size=\footnotesize}
-\setbeamerfont{example text}{series=\bfseries}
+% \setbeamerfont{example text}{series=\bfseries}
 \setbeamerfont{section}{series=\bfseries}
 \setbeamercolor{structure}{fg=Bblue}
 \setbeamercolor{title}{fg=Bblue}
 \setbeamerfont{title}{series=\bfseries}
+\setbeamercolor{frametitle}{fg=white,bg=Bblue}
 
 
 % set the color for the head and footer text
@@ -33,21 +38,24 @@
 \setbeamercolor*{title in head/foot}{fg=white,bg=Bblue}
 \setbeamercolor*{date in head/foot}{fg=white,bg=Bblue}
 
-% block theme
+% block theme normal
 \setbeamercolor{block title}{use=structure,fg=white,bg=structure.fg!95!black}
-\setbeamercolor{block title alerted}{use=alerted text,fg=white,bg=alerted text.fg!75!black}
-\setbeamercolor{block title example}{use=example text,fg=white,bg=example text.fg!75!black}
+\setbeamercolor{block body}{parent=normal text,use=block title,bg=block title.bg!20!bg}
 
-\setbeamercolor{block body}{parent=normal text,use=block title,bg=block title.bg!100!bg}
-\setbeamercolor{block body alerted}{parent=normal text,use=block title alerted,bg=block title alerted.bg!10!bg}
-\setbeamercolor{block body example}{parent=normal text,use=block title example,bg=block title example.bg!10!bg}
+% block theme alerted
+\setbeamercolor{block title alerted}{use=alerted text,fg=white,bg=alerted text.fg!75!black}
+\setbeamercolor{block body alerted}{parent=normal text,use=block title alerted,bg=block title alerted.bg!20!bg}
+
+% block theme example
+\setbeamercolor{block title example}{use=example text,fg=white,bg=example text.fg!75!black}
+\setbeamercolor{block body example}{parent=normal text,use=block title example,bg=block title example.bg!20!bg}
 
 
 % disable navigation symbols (who uses these anyway?)
 \setbeamertemplate{navigation symbols}{}
 
-% \newif\ifbeamer@secheader
-% \beamer@secheaderfalse
+\newif\ifbeamer@secheader
+\beamer@secheaderfalse
 
 % \DeclareOptionBeamer{secheader}{\beamer@secheadertrue}
 % \ProcessOptionsBeamer
@@ -59,52 +67,132 @@
 
 % \ifbeamer@secheader\else\setbeamertemplate{headline}[default]\fi
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% OUTER THEME
+% - this is the sidebars, headers, and footers
 
-% title page
-\newlength{\@headerdist}
-\setlength{\@headerdist}{5mm}
-
-\setbeamertemplate{title page}{
-  \vspace{\@headerdist}
-  \textbf{\LARGE{\inserttitle}}
-
-  \textbf{\large{\insertsubtitle}}
-  \vfill
-%   \begin{columns}
-%   \begin{column}{.45\textwidth}
-    \textbf{\insertauthor}\\[3mm]
-%     \scriptsize
-%     \addresstext
-%   \end{column}
-%   \begin{column}{.45\textwidth}
-%     \centerline{}
-% %       \pgfimage[height=3.5cm]{house}}
-%   \end{column}
-%   \end{columns}
-  \normalsize
-}
-
-%%%
 % FOOTLINE
-%%%
 % from beamerouterthemeinfolines.sty
 \defbeamertemplate*{footline}{BSU theme}
 {
-  \leavevmode%
-  \hbox{%
-  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
-    \usebeamerfont{author in head/foot}\insertshortauthor\expandafter\beamer@ifempty\expandafter{\beamer@shortinstitute}{}{~~(\insertshortinstitute)}
-  \end{beamercolorbox}%
-  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
-    \usebeamerfont{title in head/foot}\insertshorttitle%\beamer@ifempty{\insertsection}{}{ : \insertsection}
-  \end{beamercolorbox}%
-  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
-    \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
-    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
-  \end{beamercolorbox}}%
-  \vskip0pt%
+  \ifnum \insertpagenumber = 1
+    \leavevmode%
+    \hbox{%
+    \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+    \end{beamercolorbox}}%
+    \vskip0pt%
+  \else
+    \leavevmode%
+    \hbox{%
+    \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+      \usebeamerfont{author in head/foot}\insertshortauthor\expandafter\beamer@ifempty\expandafter{\beamer@shortinstitute}{}{~~(\insertshortinstitute)}
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+      \usebeamerfont{title in head/foot}\insertshorttitle%\beamer@ifempty{\insertsection}{}{ : \insertsection}
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+      \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+      \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+    \end{beamercolorbox}}%
+    \vskip0pt%
+  \fi
+}
+\setbeamertemplate{footline}[page number=1]{}
+
+% \newcommand<>\frametitle{\alt#1{\@dblarg\beamer@@frametitle}{\beamer@gobbleoptional}}
+% \long\def\beamer@@frametitle[#1]#2{%
+%   \beamer@ifempty{#2}{}{%
+%     \gdef\insertframetitle{{#2\ifnum\beamer@autobreakcount>0\relax{}\space\usebeamertemplate*{frametitle continuation}\fi}}%
+%   \gdef\beamer@frametitle{#2}%
+%   \gdef\beamer@shortframetitle{#1}%
+% }%
+% }
+
+\addtobeamertemplate{frametitle}{}{%
+  \begin{pgfpicture}
+    \pgf@relevantforpicturesizefalse
+    \pgftransformxshift{-\Gm@lmargin}
+    \pgftransformyshift{\beamer@headheight+18pt}
+%     \pgftext[at=\pgfpoint{\paperwidth}{-\beamer@headheight},right,base]{\pgfuseimage{small-corner}}
+    \pgfpathmoveto{\pgfpoint{.15\paperwidth}{0pt}}
+    \pgfpathlineto{\pgfpoint{.15\paperwidth}{-\beamer@headheight}}
+    \pgfsetlinewidth{3.5pt}
+    \pgfsetinnerlinewidth{1pt}
+    \pgfsetinnerstrokecolor{Borange}
+    \pgfsetcolor{white}
+    \pgfusepath{stroke}
+    \pgfpathmoveto{\pgfpoint{.15\paperwidth}{-.23\paperheight}}
+    \pgfpathlineto{\pgfpoint{.15\paperwidth}{-.97\paperheight}}
+    \pgfsetlinewidth{1pt}
+    \pgfsetinnerlinewidth{0pt}
+    \pgfsetcolor{Borange}
+    \pgfusepath{stroke}
+%     \pgftext[at=\pgfpoint{.075\paperwidth}{-.97\paperheight},center,base]{\pgfuseimage{small-logo}}							
+  \end{pgfpicture}%
+  \vskip-25pt%
 }
 
+\setbeamersize{text margin left=1em,text margin right=1em}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% INNTER THEME
+% - this is everything outside the sidebars, headers, and footers
+% - includes section headings, title pages, etc...
+
+% use the rectangle inner theme and modify
+\useinnertheme{rectangles}
+
+% TITLE PAGE
+\defbeamertemplate*{title page}{BSU theme}
+{
+  \vbox{}
+  \vfill
+  \begin{centering}
+    \begin{beamercolorbox}[sep=8pt,center,1]{title}
+      \usebeamerfont{title}\inserttitle\par%
+      \ifx\insertsubtitle\@empty%
+      \else%
+        \vskip0.25em%
+        {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
+      \fi%     
+    \end{beamercolorbox}%
+    \vskip1em\par
+    \begin{beamercolorbox}[sep=8pt,center,1]{author}
+      \usebeamerfont{author}\insertauthor
+    \end{beamercolorbox}
+    \begin{beamercolorbox}[sep=8pt,center,1]{institute}
+      \usebeamerfont{institute}\insertinstitute
+    \end{beamercolorbox}
+    \begin{beamercolorbox}[sep=8pt,center,1]{date}
+      \usebeamerfont{date}\insertdate
+    \end{beamercolorbox}\vskip0.5em
+    {\usebeamercolor[fg]{titlegraphic}\inserttitlegraphic\par}
+  \end{centering}
+  \vfill
+}
+
+% \setbeamertemplate{frametitle}
+% {
+% \vspace{2mm} \hspace*{-4mm}
+% \vbox{\hsize=10cm\bfseries\strut\insertframetitle\strut}
+% 
+% % \begin{textblock*}{15mm}(110mm,4mm)
+% % \includegraphics[width=14mm]{\logo} 
+% % \end{textblock*}
+% 
+% % \begin{textblock*}{1.5mm}(1mm,1mm)
+% \begin{pgfpicture}{0mm}{0mm}{1.5mm}{9mm}
+%     \color{Bblue}
+%     \pgfpathrectangle{\pgfpoint{0mm}{0mm}}{\pgfpoint{1.5mm}{9mm}}
+%     \pgfusepath{fill}
+% \end{pgfpicture}%
+% % \end{textblock*}
+% 
+% }
 
 \mode
 <all>
