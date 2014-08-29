@@ -19,11 +19,12 @@
 % set the font size and colors
 \setbeamerfont{author}{size=\large,series=\bfseries}
 % \setbeamercolor{author}{fg=Bgray}
-\setbeamerfont{date}{size=\normalsize}
+\setbeamerfont{institute}{size=\footnotesize}
+\setbeamerfont{date}{size=\footnotesize}
 \setbeamerfont{example text}{series=\bfseries}
 \setbeamerfont{section}{series=\bfseries}
 \setbeamercolor{structure}{fg=Bblue}
-\setbeamercolor{title}{fg=Borange}
+\setbeamercolor{title}{fg=Bblue}
 \setbeamerfont{title}{series=\bfseries}
 
 
@@ -31,6 +32,15 @@
 \setbeamercolor*{author in head/foot}{fg=white,bg=Bblue}
 \setbeamercolor*{title in head/foot}{fg=white,bg=Bblue}
 \setbeamercolor*{date in head/foot}{fg=white,bg=Bblue}
+
+% block theme
+\setbeamercolor{block title}{use=structure,fg=white,bg=structure.fg!95!black}
+\setbeamercolor{block title alerted}{use=alerted text,fg=white,bg=alerted text.fg!75!black}
+\setbeamercolor{block title example}{use=example text,fg=white,bg=example text.fg!75!black}
+
+\setbeamercolor{block body}{parent=normal text,use=block title,bg=block title.bg!100!bg}
+\setbeamercolor{block body alerted}{parent=normal text,use=block title alerted,bg=block title alerted.bg!10!bg}
+\setbeamercolor{block body example}{parent=normal text,use=block title example,bg=block title example.bg!10!bg}
 
 
 % disable navigation symbols (who uses these anyway?)
@@ -51,25 +61,28 @@
 
 
 % title page
-% \setbeamertemplate{title page}{
-%   \vspace{\@headerdist}
-%   \textbf{\LARGE{\inserttitle}}
-% 
-%   \textbf{\large{\insertsubtitle}}
-%   \vfill
+\newlength{\@headerdist}
+\setlength{\@headerdist}{5mm}
+
+\setbeamertemplate{title page}{
+  \vspace{\@headerdist}
+  \textbf{\LARGE{\inserttitle}}
+
+  \textbf{\large{\insertsubtitle}}
+  \vfill
 %   \begin{columns}
 %   \begin{column}{.45\textwidth}
-%     \textbf{\insertauthor}\\[3mm]
+    \textbf{\insertauthor}\\[3mm]
 %     \scriptsize
-% %     \addresstext
+%     \addresstext
 %   \end{column}
 %   \begin{column}{.45\textwidth}
 %     \centerline{}
 % %       \pgfimage[height=3.5cm]{house}}
 %   \end{column}
 %   \end{columns}
-%   \normalsize
-% }
+  \normalsize
+}
 
 %%%
 % FOOTLINE
@@ -83,7 +96,7 @@
     \usebeamerfont{author in head/foot}\insertshortauthor\expandafter\beamer@ifempty\expandafter{\beamer@shortinstitute}{}{~~(\insertshortinstitute)}
   \end{beamercolorbox}%
   \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
-    \usebeamerfont{title in head/foot}\insertshorttitle\ - \insertsection
+    \usebeamerfont{title in head/foot}\insertshorttitle%\beamer@ifempty{\insertsection}{}{ : \insertsection}
   \end{beamercolorbox}%
   \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
     \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
@@ -91,23 +104,6 @@
   \end{beamercolorbox}}%
   \vskip0pt%
 }
-
-%%%
-% HEADLINE
-%%%
-% from beamerouterthemeinfolines.sty
-% \defbeamertemplate*{headline}{BSU theme}
-% {
-%   \leavevmode%
-%   \hbox{%
-%   \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.65ex,dp=1.5ex,right]{section in head/foot}%
-%     \usebeamerfont{section in head/foot}\insertsectionhead\hspace*{2ex}
-%   \end{beamercolorbox}%
-%   \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.65ex,dp=1.5ex,left]{subsection in head/foot}%
-%     \usebeamerfont{subsection in head/foot}\hspace*{2ex}\insertsubsectionhead
-%   \end{beamercolorbox}}%
-%   \vskip0pt%
-% }
 
 
 \mode
