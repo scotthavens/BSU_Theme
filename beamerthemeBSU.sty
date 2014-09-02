@@ -32,7 +32,9 @@
 \setbeamercolor{structure}{fg=Bblue}
 \setbeamercolor{title}{fg=Bblue}
 \setbeamerfont{title}{series=\bfseries}
-\setbeamercolor{frametitle}{fg=Borange}
+
+\setbeamerfont{frametitle}{series=\bfseries}
+\setbeamercolor{frametitle}{fg=Borange,bg=Bblue!90!white}
 
 
 % set the color for the head and footer text
@@ -114,26 +116,25 @@
 % }%
 % }
 
-% \setlength{\beamer@headheight}{.165\paperheight}
-\newlength{\@headerdist}
-\setlength{\@headerdist}{2cm}
-\addtobeamertemplate{frametitle}{}{%
-  \begin{pgfpicture}
-%     \pgf@relevantforpicturesizefalse
-%     \pgftransformxshift{-\Gm@lmargin}
-%     \pgftransformyshift{\@headerdist+18pt}
-    \pgfpathmoveto{\pgfpointorigin}
-    %   \pgfpathlineto{\pgfpoint{1cm}{1cm}}
-    \pgfpathlineto{\pgfpoint{1\paperwidth}{0cm}}
-    \pgfpathlineto{\pgfpoint{1\paperwidth}{2cm}}
-    \pgfpathlineto{\pgfpoint{0cm}{2cm}}
-    \pgfpathlineto{\pgfpoint{0cm}{1cm}}
-    \color{red}
-    \pgfusepath{stroke}
-  \end{pgfpicture}
+% \setlength{\beamer@headheight}{0cm}
+%\newlength{\@headerdist}
+%\setlength{\@headerdist}{2cm}
+%\addtobeamertemplate{frametitle}{}{%
+%  \begin{pgfpicture}
+%%     \pgf@relevantforpicturesizefalse
+%%     \pgftransformxshift{-\Gm@lmargin}
+%%     \pgftransformyshift{\@headerdist+18pt}
+%%    \pgfpathmoveto{\pgfpointorigin}
+%    %   \pgfpathlineto{\pgfpoint{1cm}{1cm}}
+%%    \pgfpathlineto{\pgfpoint{1\paperwidth}{0cm}}
+%%    \pgfpathlineto{\pgfpoint{1\paperwidth}{2cm}}
+%%    \pgfpathlineto{\pgfpoint{0cm}{2cm}}
+%%    \pgfpathlineto{\pgfpoint{0cm}{1cm}}
+%    \pgfpathrectanglecorners{\pgfpoint{0cm}{0cm}}{\pgfpoint{0.5\paperwidth}{-0.25\paperheight}}
+%    \color{red}
+%    \pgfusepath{stroke}
+%  \end{pgfpicture}
 
-    
-  
 
 %   \begin{pgfpicture}
 %     \pgf@relevantforpicturesizefalse
@@ -156,6 +157,20 @@
 % %     \pgftext[at=\pgfpoint{.075\paperwidth}{-.97\paperheight},center,base]{\pgfuseimage{small-logo}}							
 %   \end{pgfpicture}%
 %   \vskip-25pt%
+%}
+
+\setbeamertemplate{frametitle}
+{
+%	\leavevmode%
+	\nointerlineskip
+	\begin{beamercolorbox}[sep=0.3cm,ht=2em,wd=\paperwidth]{frametitle}
+%		\vbox{}\vskip-2ex%
+		\vspace{-0.5ex}%
+		\strut\insertframetitle\strut%
+%        \vskip-0.8ex%
+        	\hfill
+		\raisebox{-0.5ex}{\includegraphics[width=0.8cm]{./BSU_theme/logo}}
+	\end{beamercolorbox}
 }
 
 \setbeamersize{text margin left=1em,text margin right=1em}
