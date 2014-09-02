@@ -42,19 +42,6 @@
 \setbeamercolor*{title in head/foot}{fg=white,bg=Bblue}
 \setbeamercolor*{date in head/foot}{fg=white,bg=Bblue}
 
-% block theme normal
-\setbeamercolor{block title}{use=structure,fg=white,bg=structure.fg!95!black}
-\setbeamercolor{block body}{parent=normal text,use=block title,bg=block title.bg!20!bg}
-
-% block theme alerted
-\setbeamercolor{block title alerted}{use=alerted text,fg=white,bg=alerted text.fg!75!black}
-\setbeamercolor{block body alerted}{parent=normal text,use=block title alerted,bg=block title alerted.bg!20!bg}
-
-% block theme example
-\setbeamercolor{block title example}{use=example text,fg=white,bg=example text.fg!75!black}
-\setbeamercolor{block body example}{parent=normal text,use=block title example,bg=block title example.bg!20!bg}
-
-
 % disable navigation symbols (who uses these anyway?)
 \setbeamertemplate{navigation symbols}{}
 
@@ -106,15 +93,6 @@
   \fi
 }
 \setbeamertemplate{footline}[page number=1]{}
-
-% \newcommand<>\frametitle{\alt#1{\@dblarg\beamer@@frametitle}{\beamer@gobbleoptional}}
-% \long\def\beamer@@frametitle[#1]#2{%
-%   \beamer@ifempty{#2}{}{%
-%     \gdef\insertframetitle{{#2\ifnum\beamer@autobreakcount>0\relax{}\space\usebeamertemplate*{frametitle continuation}\fi}}%
-%   \gdef\beamer@frametitle{#2}%
-%   \gdef\beamer@shortframetitle{#1}%
-% }%
-% }
 
 % \setlength{\beamer@headheight}{0cm}
 %\newlength{\@headerdist}
@@ -181,7 +159,11 @@
 % - includes section headings, title pages, etc...
 
 % use the rectangle inner theme and modify
-\useinnertheme{rectangles}
+\useinnertheme{rounded}
+
+% The default option for enumerate environment removes the circles around the numbers provided by the "rounded" inner theme. Just simple numbers remain.
+\setbeamertemplate{enumerate items}[default]
+
 
 % TITLE PAGE
 \defbeamertemplate*{title page}{BSU theme}
@@ -212,24 +194,21 @@
   \vfill
 }
 
-% \setbeamertemplate{frametitle}
-% {
-% \vspace{2mm} \hspace*{-4mm}
-% \vbox{\hsize=10cm\bfseries\strut\insertframetitle\strut}
-% 
-% % \begin{textblock*}{15mm}(110mm,4mm)
-% % \includegraphics[width=14mm]{\logo} 
-% % \end{textblock*}
-% 
-% % \begin{textblock*}{1.5mm}(1mm,1mm)
-% \begin{pgfpicture}{0mm}{0mm}{1.5mm}{9mm}
-%     \color{Bblue}
-%     \pgfpathrectangle{\pgfpoint{0mm}{0mm}}{\pgfpoint{1.5mm}{9mm}}
-%     \pgfusepath{fill}
-% \end{pgfpicture}%
-% % \end{textblock*}
-% 
-% }
+% set the overall block shape
+\setbeamertemplate{blocks}[rounded][shadow=true]
+
+% block theme normal
+\setbeamercolor{block title}{use=structure,fg=white,bg=structure.fg!95!black}
+\setbeamercolor{block body}{parent=normal text,use=block title,bg=block title.bg!20!bg}
+
+% block theme alerted
+\setbeamercolor{block title alerted}{use=alerted text,fg=white,bg=alerted text.fg!75!black}
+\setbeamercolor{block body alerted}{parent=normal text,use=block title alerted,bg=block title alerted.bg!20!bg}
+
+% block theme example
+\setbeamercolor{block title example}{use=example text,fg=white,bg=example text.fg!75!black}
+\setbeamercolor{block body example}{parent=normal text,use=block title example,bg=block title example.bg!20!bg}
+
 
 \mode
 <all>
