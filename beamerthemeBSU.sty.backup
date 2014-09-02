@@ -20,6 +20,8 @@
 % SET ALL THE COLOR / FONT THEMES
 % - these take the place of usecolortheme
 
+\usecolortheme{rose}
+
 % set the font size and colors
 \setbeamerfont{author}{size=\large,series=\bfseries}
 % \setbeamercolor{author}{fg=Bgray}
@@ -30,26 +32,16 @@
 \setbeamercolor{structure}{fg=Bblue}
 \setbeamercolor{title}{fg=Bblue}
 \setbeamerfont{title}{series=\bfseries}
-\setbeamercolor{frametitle}{fg=white,bg=Bblue}
+
+\setbeamerfont{frametitle}{series=\bfseries}
+\setbeamercolor{frametitle}{fg=Borange,bg=Bblue!90!white}
+\setbeamercolor{frametitle right}{bg=Bblue!50!black}
 
 
 % set the color for the head and footer text
 \setbeamercolor*{author in head/foot}{fg=white,bg=Bblue}
 \setbeamercolor*{title in head/foot}{fg=white,bg=Bblue}
 \setbeamercolor*{date in head/foot}{fg=white,bg=Bblue}
-
-% block theme normal
-\setbeamercolor{block title}{use=structure,fg=white,bg=structure.fg!95!black}
-\setbeamercolor{block body}{parent=normal text,use=block title,bg=block title.bg!20!bg}
-
-% block theme alerted
-\setbeamercolor{block title alerted}{use=alerted text,fg=white,bg=alerted text.fg!75!black}
-\setbeamercolor{block body alerted}{parent=normal text,use=block title alerted,bg=block title alerted.bg!20!bg}
-
-% block theme example
-\setbeamercolor{block title example}{use=example text,fg=white,bg=example text.fg!75!black}
-\setbeamercolor{block body example}{parent=normal text,use=block title example,bg=block title example.bg!20!bg}
-
 
 % disable navigation symbols (who uses these anyway?)
 \setbeamertemplate{navigation symbols}{}
@@ -103,38 +95,87 @@
 }
 \setbeamertemplate{footline}[page number=1]{}
 
-% \newcommand<>\frametitle{\alt#1{\@dblarg\beamer@@frametitle}{\beamer@gobbleoptional}}
-% \long\def\beamer@@frametitle[#1]#2{%
-%   \beamer@ifempty{#2}{}{%
-%     \gdef\insertframetitle{{#2\ifnum\beamer@autobreakcount>0\relax{}\space\usebeamertemplate*{frametitle continuation}\fi}}%
-%   \gdef\beamer@frametitle{#2}%
-%   \gdef\beamer@shortframetitle{#1}%
-% }%
-% }
 
-\addtobeamertemplate{frametitle}{}{%
-  \begin{pgfpicture}
-    \pgf@relevantforpicturesizefalse
-    \pgftransformxshift{-\Gm@lmargin}
-    \pgftransformyshift{\beamer@headheight+18pt}
-%     \pgftext[at=\pgfpoint{\paperwidth}{-\beamer@headheight},right,base]{\pgfuseimage{small-corner}}
-    \pgfpathmoveto{\pgfpoint{.15\paperwidth}{0pt}}
-    \pgfpathlineto{\pgfpoint{.15\paperwidth}{-\beamer@headheight}}
-    \pgfsetlinewidth{3.5pt}
-    \pgfsetinnerlinewidth{1pt}
-    \pgfsetinnerstrokecolor{Borange}
-    \pgfsetcolor{white}
-    \pgfusepath{stroke}
-    \pgfpathmoveto{\pgfpoint{.15\paperwidth}{-.23\paperheight}}
-    \pgfpathlineto{\pgfpoint{.15\paperwidth}{-.97\paperheight}}
-    \pgfsetlinewidth{1pt}
-    \pgfsetinnerlinewidth{0pt}
-    \pgfsetcolor{Borange}
-    \pgfusepath{stroke}
-%     \pgftext[at=\pgfpoint{.075\paperwidth}{-.97\paperheight},center,base]{\pgfuseimage{small-logo}}							
-  \end{pgfpicture}%
-  \vskip-25pt%
+%\setbeamertemplate{frametitle}
+%{
+%%	\leavevmode%
+%	\nointerlineskip
+%	\begin{beamercolorbox}[sep=0.3cm,ht=2em,wd=\paperwidth]{frametitle}
+%%		\vbox{}\vskip-2ex%
+%		\vspace{-0.5ex}%
+%		\strut\insertframetitle\strut%
+%%        \vskip-0.8ex%
+%        	\hfill
+%		\raisebox{-0.5ex}{\includegraphics[width=0.8cm]{./BSU_theme/logo}}
+%	\end{beamercolorbox}
+%}
+
+
+%%%%%
+% modified from beamerouterthemeshadow.sty
+
+\pgfdeclarehorizontalshading[frametitle.bg,frametitle right.bg]{beamer@frametitleshade}{\paperheight}{%
+  color(0pt)=(frametitle.bg);
+  color(\paperwidth)=(frametitle right.bg)}
+
+\AtBeginDocument{
+  \pgfdeclareverticalshading{beamer@topshade}{\paperwidth}{%
+    color(0pt)=(bg);
+    color(4pt)=(black!50!bg)}
 }
+
+% minipage is for defining the size of the text - mini page[background center][height][text location]{width}
+\setbeamertemplate{frametitle}
+{%
+  \nointerlineskip%
+  \vskip-2pt%
+  \hbox{\leavevmode
+    \advance\beamer@leftmargin by -12bp%
+    \advance\beamer@rightmargin by -12bp%
+    \beamer@tempdim=\textwidth%
+    \advance\beamer@tempdim by \beamer@leftmargin%
+    \advance\beamer@tempdim by \beamer@rightmargin%
+    \hskip-\Gm@lmargin\hbox{%
+      \setbox\beamer@tempbox=\hbox{\begin{minipage}[b][2.5em][t]{\paperwidth}%
+          \vbox{}\vskip0.1ex%
+          \leftskip0.3cm%
+          \rightskip0.3cm plus1fil\leavevmode
+	  \begin{minipage}{0.8\paperwidth}
+	   ×\insertframetitle
+	  \end{minipage}
+%           \insertframetitle%\struct%
+          \hfill
+	  \includegraphics[width=0.8cm]{./BSU_Theme/logo}
+% 	  \raisebox{-0.8ex}{\includegraphics[width=0.8cm]{./BSU_Theme/logo}}
+% 	  \ifx\insertframesubtitle\@empty%
+%             \par%
+%           \else
+%             \par{\usebeamerfont*{framesubtitle}{\usebeamercolor[fg]{framesubtitle}\insertframesubtitle}\strut\par}%
+%           \fi%
+          \nointerlineskip
+          \vbox{}%
+          \end{minipage}}%
+      \beamer@tempdim=\ht\beamer@tempbox%
+      \advance\beamer@tempdim by 2pt%
+      \begin{pgfpicture}{0pt}{0pt}{\paperwidth}{\beamer@tempdim}
+        \usebeamercolor{frametitle right}
+        \pgfpathrectangle{\pgfpointorigin}{\pgfpoint{\paperwidth}{\beamer@tempdim}}
+        \pgfusepath{clip}
+        \pgftext[left,base]{\pgfuseshading{beamer@frametitleshade}}
+      \end{pgfpicture}
+      \hskip-\paperwidth%
+      \box\beamer@tempbox%
+    }%
+    \hskip-\Gm@rmargin%
+  }%
+  \nointerlineskip% shadow below the frame title
+    \vskip-0.2pt
+    \hbox to\textwidth{\hskip-\Gm@lmargin\pgfuseshading{beamer@topshade}\hskip-\Gm@rmargin}
+    \vskip-2pt
+}
+
+% end from beamerouterthemeshadow.sty
+%%%%%
 
 \setbeamersize{text margin left=1em,text margin right=1em}
 
@@ -144,7 +185,11 @@
 % - includes section headings, title pages, etc...
 
 % use the rectangle inner theme and modify
-\useinnertheme{rectangles}
+\useinnertheme{rounded}
+
+% The default option for enumerate environment removes the circles around the numbers provided by the "rounded" inner theme. Just simple numbers remain.
+\setbeamertemplate{enumerate items}[default]
+
 
 % TITLE PAGE
 \defbeamertemplate*{title page}{BSU theme}
@@ -175,24 +220,21 @@
   \vfill
 }
 
-% \setbeamertemplate{frametitle}
-% {
-% \vspace{2mm} \hspace*{-4mm}
-% \vbox{\hsize=10cm\bfseries\strut\insertframetitle\strut}
-% 
-% % \begin{textblock*}{15mm}(110mm,4mm)
-% % \includegraphics[width=14mm]{\logo} 
-% % \end{textblock*}
-% 
-% % \begin{textblock*}{1.5mm}(1mm,1mm)
-% \begin{pgfpicture}{0mm}{0mm}{1.5mm}{9mm}
-%     \color{Bblue}
-%     \pgfpathrectangle{\pgfpoint{0mm}{0mm}}{\pgfpoint{1.5mm}{9mm}}
-%     \pgfusepath{fill}
-% \end{pgfpicture}%
-% % \end{textblock*}
-% 
-% }
+% set the overall block shape
+\setbeamertemplate{blocks}[rounded][shadow=true]
+
+% block theme normal
+\setbeamercolor{block title}{use=structure,fg=white,bg=structure.fg!95!black}
+\setbeamercolor{block body}{parent=normal text,use=block title,bg=block title.bg!20!bg}
+
+% block theme alerted
+\setbeamercolor{block title alerted}{use=alerted text,fg=white,bg=alerted text.fg!75!black}
+\setbeamercolor{block body alerted}{parent=normal text,use=block title alerted,bg=block title alerted.bg!20!bg}
+
+% block theme example
+\setbeamercolor{block title example}{use=example text,fg=white,bg=example text.fg!75!black}
+\setbeamercolor{block body example}{parent=normal text,use=block title example,bg=block title example.bg!20!bg}
+
 
 \mode
 <all>

@@ -140,14 +140,19 @@
           \vbox{}\vskip0.1ex%
           \leftskip0.3cm%
           \rightskip0.3cm plus1fil\leavevmode
-          \insertframetitle%\struct%
+	  \begin{minipage}[t]{0.7\paperwidth}
+	    \insertframetitle
+	    \ifx\insertframesubtitle\@empty%
+	      \par%
+	    \else
+	      \par{\usebeamerfont*{framesubtitle}{\usebeamercolor[fg]{framesubtitle}\insertframesubtitle}\strut\par}%
+	    \fi%
+	  \end{minipage}
+%           \insertframetitle%\struct%
           \hfill
-	  \raisebox{-0.8ex}{\includegraphics[width=0.8cm]{./BSU_theme/logo}}
-	  \ifx\insertframesubtitle\@empty%
-            \par%
-          \else
-            \par{\usebeamerfont*{framesubtitle}{\usebeamercolor[fg]{framesubtitle}\insertframesubtitle}\strut\par}%
-          \fi%
+% 	  \includegraphics[width=0.8cm]{./BSU_Theme/logo}
+	  \raisebox{-0.8ex}{\includegraphics[width=0.8cm]{./BSU_Theme/logo}}
+	  \par
           \nointerlineskip
           \vbox{}%
           \end{minipage}}%
