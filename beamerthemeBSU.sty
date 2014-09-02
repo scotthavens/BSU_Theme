@@ -35,6 +35,7 @@
 
 \setbeamerfont{frametitle}{series=\bfseries}
 \setbeamercolor{frametitle}{fg=Borange,bg=Bblue!90!white}
+\setbeamercolor{frametitle right}{bg=Bblue!50!black}
 
 
 % set the color for the head and footer text
@@ -94,62 +95,83 @@
 }
 \setbeamertemplate{footline}[page number=1]{}
 
-% \setlength{\beamer@headheight}{0cm}
-%\newlength{\@headerdist}
-%\setlength{\@headerdist}{2cm}
-%\addtobeamertemplate{frametitle}{}{%
-%  \begin{pgfpicture}
-%%     \pgf@relevantforpicturesizefalse
-%%     \pgftransformxshift{-\Gm@lmargin}
-%%     \pgftransformyshift{\@headerdist+18pt}
-%%    \pgfpathmoveto{\pgfpointorigin}
-%    %   \pgfpathlineto{\pgfpoint{1cm}{1cm}}
-%%    \pgfpathlineto{\pgfpoint{1\paperwidth}{0cm}}
-%%    \pgfpathlineto{\pgfpoint{1\paperwidth}{2cm}}
-%%    \pgfpathlineto{\pgfpoint{0cm}{2cm}}
-%%    \pgfpathlineto{\pgfpoint{0cm}{1cm}}
-%    \pgfpathrectanglecorners{\pgfpoint{0cm}{0cm}}{\pgfpoint{0.5\paperwidth}{-0.25\paperheight}}
-%    \color{red}
-%    \pgfusepath{stroke}
-%  \end{pgfpicture}
 
-
-%   \begin{pgfpicture}
-%     \pgf@relevantforpicturesizefalse
-%     \pgftransformxshift{-\Gm@lmargin}
-%     \pgftransformyshift{\beamer@headheight+18pt}
-% %     \pgftext[at=\pgfpoint{\paperwidth}{-\beamer@headheight},right,base]{\pgfuseimage{small-corner}}
-%     \pgfpathmoveto{\pgfpoint{.15\paperwidth}{0pt}}
-%     \pgfpathlineto{\pgfpoint{.15\paperwidth}{-\beamer@headheight}}
-%     \pgfsetlinewidth{3.5pt}
-%     \pgfsetinnerlinewidth{1pt}
-%     \pgfsetinnerstrokecolor{Borange}
-%     \pgfsetcolor{white}
-%     \pgfusepath{stroke}
-%     \pgfpathmoveto{\pgfpoint{.15\paperwidth}{-.23\paperheight}}
-%     \pgfpathlineto{\pgfpoint{.15\paperwidth}{-.97\paperheight}}
-%     \pgfsetlinewidth{1pt}
-%     \pgfsetinnerlinewidth{0pt}
-%     \pgfsetcolor{Borange}
-%     \pgfusepath{stroke}
-% %     \pgftext[at=\pgfpoint{.075\paperwidth}{-.97\paperheight},center,base]{\pgfuseimage{small-logo}}							
-%   \end{pgfpicture}%
-%   \vskip-25pt%
+%\setbeamertemplate{frametitle}
+%{
+%%	\leavevmode%
+%	\nointerlineskip
+%	\begin{beamercolorbox}[sep=0.3cm,ht=2em,wd=\paperwidth]{frametitle}
+%%		\vbox{}\vskip-2ex%
+%		\vspace{-0.5ex}%
+%		\strut\insertframetitle\strut%
+%%        \vskip-0.8ex%
+%        	\hfill
+%		\raisebox{-0.5ex}{\includegraphics[width=0.8cm]{./BSU_theme/logo}}
+%	\end{beamercolorbox}
 %}
 
-\setbeamertemplate{frametitle}
-{
-%	\leavevmode%
-	\nointerlineskip
-	\begin{beamercolorbox}[sep=0.3cm,ht=2em,wd=\paperwidth]{frametitle}
-%		\vbox{}\vskip-2ex%
-		\vspace{-0.5ex}%
-		\strut\insertframetitle\strut%
-%        \vskip-0.8ex%
-        	\hfill
-		\raisebox{-0.5ex}{\includegraphics[width=0.8cm]{./BSU_theme/logo}}
-	\end{beamercolorbox}
+
+%%%%%
+% modified from beamerouterthemeshadow.sty
+
+\pgfdeclarehorizontalshading[frametitle.bg,frametitle right.bg]{beamer@frametitleshade}{\paperheight}{%
+  color(0pt)=(frametitle.bg);
+  color(\paperwidth)=(frametitle right.bg)}
+
+\AtBeginDocument{
+  \pgfdeclareverticalshading{beamer@topshade}{\paperwidth}{%
+    color(0pt)=(bg);
+    color(4pt)=(black!50!bg)}
 }
+
+% minipage is for defining the size of the text - mini page[background center][height][text location]{width}
+\setbeamertemplate{frametitle}
+{%
+  \nointerlineskip%
+  \vskip-2pt%
+  \hbox{\leavevmode
+    \advance\beamer@leftmargin by -12bp%
+    \advance\beamer@rightmargin by -12bp%
+    \beamer@tempdim=\textwidth%
+    \advance\beamer@tempdim by \beamer@leftmargin%
+    \advance\beamer@tempdim by \beamer@rightmargin%
+    \hskip-\Gm@lmargin\hbox{%
+      \setbox\beamer@tempbox=\hbox{\begin{minipage}[b][2.5em][t]{\paperwidth}%
+          \vbox{}\vskip0.1ex%
+          \leftskip0.3cm%
+          \rightskip0.3cm plus1fil\leavevmode
+          \insertframetitle%\struct%
+          \hfill
+	  \raisebox{-0.8ex}{\includegraphics[width=0.8cm]{./BSU_theme/logo}}
+	  \ifx\insertframesubtitle\@empty%
+            \par%
+          \else
+            \par{\usebeamerfont*{framesubtitle}{\usebeamercolor[fg]{framesubtitle}\insertframesubtitle}\strut\par}%
+          \fi%
+          \nointerlineskip
+          \vbox{}%
+          \end{minipage}}%
+      \beamer@tempdim=\ht\beamer@tempbox%
+      \advance\beamer@tempdim by 2pt%
+      \begin{pgfpicture}{0pt}{0pt}{\paperwidth}{\beamer@tempdim}
+        \usebeamercolor{frametitle right}
+        \pgfpathrectangle{\pgfpointorigin}{\pgfpoint{\paperwidth}{\beamer@tempdim}}
+        \pgfusepath{clip}
+        \pgftext[left,base]{\pgfuseshading{beamer@frametitleshade}}
+      \end{pgfpicture}
+      \hskip-\paperwidth%
+      \box\beamer@tempbox%
+    }%
+    \hskip-\Gm@rmargin%
+  }%
+  \nointerlineskip% shadow below the frame title
+    \vskip-0.2pt
+    \hbox to\textwidth{\hskip-\Gm@lmargin\pgfuseshading{beamer@topshade}\hskip-\Gm@rmargin}
+    \vskip-2pt
+}
+
+% end from beamerouterthemeshadow.sty
+%%%%%
 
 \setbeamersize{text margin left=1em,text margin right=1em}
 
