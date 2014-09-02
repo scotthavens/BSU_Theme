@@ -1,0 +1,121 @@
+\documentclass[]{beamer}
+
+\usepackage{beamerthemeBSU}
+\usepackage{inputenc}
+
+
+\title[Title]{My title}
+\author{Your name}
+\institute[Uni]{Your University} % set [Uni] to [] to remove from footline
+\date{Presentation Date}
+
+\begin{document}
+
+\begin{frame}
+  \frametitle{\null}	% adding this will create a empty frame title
+  \maketitle
+\end{frame}
+
+%\tableofcontents[pausesections] will make each point show up one at a time
+\begin{frame}
+\frametitle{Table of Contents}
+\tableofcontents
+\end{frame}
+
+
+\section{Introduction}
+\begin{frame}
+\frametitle{A Frame}
+\framesubtitle{Bullet points}
+\begin{itemize}
+\item First thing
+	\begin{itemize}
+	\item small point
+	\item fine print
+	\end{itemize}
+\item Second thing
+	\begin{enumerate}
+	\item point 1
+	\end{enumerate}
+\item Third thing
+	\begin{description}
+	\item[Research] the scientific pursuit for knowledge
+	\end{description}
+\end{itemize}
+\end{frame}
+
+\subsection{Text}
+\begin{frame}
+\frametitle{Another Frame}
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+\end{frame}
+
+\subsection{Blocks}
+\begin{frame}
+\frametitle{Blocks}
+\begin{definition}[Greetings]
+Hello World
+\end{definition}
+
+\begin{theorem}[Fermat's Last Theorem]
+$a^n + b^n = c^n, n \leq 2$
+\end{theorem}
+
+\begin{alertblock}{Uh-oh.}
+By the pricking of my thumbs.
+\end{alertblock}
+
+\begin{exampleblock}{Uh-oh.}
+Something evil this way comes.
+\end{exampleblock}
+
+\end{frame}
+
+\section{Outline}
+
+\begin{frame}
+    \frametitle{This is a test}
+    \begin{itemize}
+        \item<1->Test 1
+        \item<2->Test 2
+        \item<3->Test 3
+    \end{itemize}
+\end{frame}
+
+\subsection{Subsection 1}
+
+\begin{frame}
+    \frametitle{This is subsection 1}
+    \begin{columns}
+        \begin{column}{5cm} % width = 5cm
+            \begin{itemize}
+                \item Hello
+                \item World
+            \end{itemize}
+        \end{column}
+        \begin{column}{5cm} % width = 5cm
+            \begin{itemize}
+                \item Hola
+                \item Mundo
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\section{Content}
+
+\begin{frame}
+    \frametitle{This is content}
+    \begin{itemize}
+        \item<1,2>Test 1
+        \item<2>Test 2
+        \item<3>Test 3
+    \end{itemize}
+\end{frame}
+
+\subsection{Content Subsection}
+
+% \ThankYouFrame
+
+
+\end{document}
