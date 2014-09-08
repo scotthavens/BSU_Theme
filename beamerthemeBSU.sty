@@ -3,7 +3,8 @@
 \ProvidesPackage{beamerthemeBSU}[2014/8/29]
 
 % Define the BSU official colors from brand standards
-\definecolor{Borange}{RGB}{241,99,42}
+% \definecolor{Borange}{RGB}{241,99,42}
+\definecolor{Borange}{RGB}{240,75,36}
 \definecolor{Bblue}{RGB}{9,52,122}
 \definecolor{Bgray}{RGB}{49,49,45}
 
@@ -36,8 +37,10 @@
 
 % set the frame title font, color, and fading
 \setbeamerfont{frametitle}{series=\bfseries}
-\setbeamercolor{frametitle}{fg=Borange,bg=Bblue!90!white}
-\setbeamercolor{frametitle right}{bg=Bblue!50!black}
+% \setbeamercolor{frametitle}{fg=Borange,bg=Bblue!80!white}
+% \setbeamercolor{frametitle right}{bg=Bblue!50!black}
+\setbeamercolor{frametitle}{fg=Borange,bg=Bblue!60!black}
+\setbeamercolor{frametitle right}{bg=Bblue!80!white}
 
 % set the color for the head and footer text
 \setbeamercolor*{author in head/foot}{fg=white,bg=Bblue}
@@ -159,6 +162,8 @@
 
 % use the rectangle inner theme and modify
 \useinnertheme{rectangles}
+
+% \setbeamertemplate{itemize items}{\tikz{\fill[color=palette primary] rectangle(.2,.1);}}
 
 % The default option for enumerate environment removes the circles around the numbers provided by the "rounded" inner theme. Just simple numbers remain.
 % \setbeamertemplate{enumerate items}[default]

@@ -2,8 +2,11 @@
 
 \ProvidesPackage{beamerthemeBSU}[2014/8/29]
 
+\usepackage{contour}
+
 % Define the BSU official colors from brand standards
-\definecolor{Borange}{RGB}{241,99,42}
+% \definecolor{Borange}{RGB}{241,99,42}
+\definecolor{Borange}{RGB}{240,75,36}
 \definecolor{Bblue}{RGB}{9,52,122}
 \definecolor{Bgray}{RGB}{49,49,45}
 
@@ -20,23 +23,24 @@
 % SET ALL THE COLOR / FONT THEMES
 % - these take the place of usecolortheme
 
-\usecolortheme{rose}
+% \usecolortheme{rose}
 
 % set the font size and colors
 \setbeamerfont{author}{size=\large,series=\bfseries}
 % \setbeamercolor{author}{fg=Bgray}
 \setbeamerfont{institute}{size=\footnotesize}
 \setbeamerfont{date}{size=\footnotesize}
-% \setbeamerfont{example text}{series=\bfseries}
 \setbeamerfont{section}{series=\bfseries}
-\setbeamercolor{structure}{fg=Bblue}
+\setbeamercolor{structure}{fg=Bblue!70!black}
+
+% set the title font and color
 \setbeamercolor{title}{fg=Bblue}
 \setbeamerfont{title}{series=\bfseries}
 
+% set the frame title font, color, and fading
 \setbeamerfont{frametitle}{series=\bfseries}
 \setbeamercolor{frametitle}{fg=Borange,bg=Bblue!90!white}
 \setbeamercolor{frametitle right}{bg=Bblue!50!black}
-
 
 % set the color for the head and footer text
 \setbeamercolor*{author in head/foot}{fg=white,bg=Bblue}
@@ -45,19 +49,6 @@
 
 % disable navigation symbols (who uses these anyway?)
 \setbeamertemplate{navigation symbols}{}
-
-\newif\ifbeamer@secheader
-\beamer@secheaderfalse
-
-% \DeclareOptionBeamer{secheader}{\beamer@secheadertrue}
-% \ProcessOptionsBeamer
-
-% \usecolortheme{whale}
-% \usecolortheme{orchid}
-% \useinnertheme[shadow]{rounded}
-% \useoutertheme{infolines}
-
-% \ifbeamer@secheader\else\setbeamertemplate{headline}[default]\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % OUTER THEME
@@ -95,22 +86,6 @@
 }
 \setbeamertemplate{footline}[page number=1]{}
 
-
-%\setbeamertemplate{frametitle}
-%{
-%%	\leavevmode%
-%	\nointerlineskip
-%	\begin{beamercolorbox}[sep=0.3cm,ht=2em,wd=\paperwidth]{frametitle}
-%%		\vbox{}\vskip-2ex%
-%		\vspace{-0.5ex}%
-%		\strut\insertframetitle\strut%
-%%        \vskip-0.8ex%
-%        	\hfill
-%		\raisebox{-0.5ex}{\includegraphics[width=0.8cm]{./BSU_theme/logo}}
-%	\end{beamercolorbox}
-%}
-
-
 %%%%%
 % modified from beamerouterthemeshadow.sty
 
@@ -140,18 +115,19 @@
           \vbox{}\vskip0.1ex%
           \leftskip0.3cm%
           \rightskip0.3cm plus1fil\leavevmode
-	  \begin{minipage}{0.8\paperwidth}
-	   ×\insertframetitle
+	  \begin{minipage}[t]{0.8\paperwidth}
+	    \insertframetitle
+	    \ifx\insertframesubtitle\@empty%
+	      \par%
+	    \else
+	      \par{\usebeamerfont*{framesubtitle}{\usebeamercolor[fg]{framesubtitle}\insertframesubtitle}\strut\par}%
+	    \fi%
 	  \end{minipage}
 %           \insertframetitle%\struct%
           \hfill
-	  \includegraphics[width=0.8cm]{./BSU_Theme/logo}
-% 	  \raisebox{-0.8ex}{\includegraphics[width=0.8cm]{./BSU_Theme/logo}}
-% 	  \ifx\insertframesubtitle\@empty%
-%             \par%
-%           \else
-%             \par{\usebeamerfont*{framesubtitle}{\usebeamercolor[fg]{framesubtitle}\insertframesubtitle}\strut\par}%
-%           \fi%
+% 	  \includegraphics[width=0.8cm]{./BSU_Theme/logo}
+	  \raisebox{-0.8ex}{\includegraphics[width=0.8cm]{./logo}}
+	  \par
           \nointerlineskip
           \vbox{}%
           \end{minipage}}%
@@ -185,11 +161,16 @@
 % - includes section headings, title pages, etc...
 
 % use the rectangle inner theme and modify
-\useinnertheme{rounded}
+\useinnertheme{rectangles}
+
+% \setbeamertemplate{itemize items}{\tikz{\fill[color=palette primary] rectangle(.2,.1);}}
 
 % The default option for enumerate environment removes the circles around the numbers provided by the "rounded" inner theme. Just simple numbers remain.
-\setbeamertemplate{enumerate items}[default]
+% \setbeamertemplate{enumerate items}[default]
 
+% set the TOC
+% \setbeamertemplate{sections/subsections in toc}[sections numbered]
+% \setbeamertemplate{items}[rectangle]
 
 % TITLE PAGE
 \defbeamertemplate*{title page}{BSU theme}
